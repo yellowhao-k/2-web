@@ -84,10 +84,10 @@ export default defineNuxtConfig({
     ],
 
     // sitemap 建议写绝对路径
-    sitemap: 'https://yourdomain.com/sitemap.xml',
+    sitemap: 'https://www.speedexp.top/sitemap.xml',
 
     // Host 声明（对部分搜索引擎仍有用）
-    host: 'https://yourdomain.com'
+    host: 'https://www.speedexp.top'
   },
 
   /* ===========================
@@ -96,7 +96,7 @@ export default defineNuxtConfig({
   nitro: {
     // 默认 Node Server，最通用（宝塔 / PM2 / Docker）
     preset: 'node-server',
-
+    compatibilityDate: '2025-01-01',
     // 压缩 public 静态资源（gzip / brotli）
     compressPublicAssets: {
       gzip: true,
@@ -148,25 +148,36 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       // 用于 sitemap / canonical / SEO 组件
-      siteUrl: process.env.SITE_URL || 'https://yourdomain.com'
+      siteUrl:  'https://www.speedexp.top'
     }
   },
 
   build: {
-    transpile: []
+    transpile: [],
+    extractCSS: true
   },
 
   vite: {
     build: {
       rollupOptions: {
         output: {
+          // 手动拆分 JS
           manualChunks(id) {
-            if (id.includes('node_modules')) {
-              return 'vendor'
-            }
+            if (id.includes('node_modules')) return 'vendor'
+            if (id.endsWith('.css')) return 'styles'
+          },
+          // 设置文件名结构，方便缓存和 CDN
+          chunkFileNames: 'js/[name]-[hash].js',
+          entryFileNames: 'js/[name]-[hash].js',
+          assetFileNames: (assetInfo) => {
+            if (/\.css$/.test(assetInfo.name ?? '')) return 'css/[name]-[hash][extname]'
+            if (/\.(png|jpe?g|svg|gif|webp|avif)$/.test(assetInfo.name ?? '')) return 'images/[name]-[hash][extname]'
+            return 'assets/[name]-[hash][extname]'
           }
         }
-      }
+      },
+      // CSS 预处理优化
+      cssCodeSplit: true
     }
   }
 })

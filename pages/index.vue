@@ -49,35 +49,6 @@
       </div>
     </section>
 
-    <!-- Latest Articles Section -->
-    <section class="articles-section">
-      <div class="container">
-        <h2 class="section-title">最新资讯</h2>
-        <div class="articles-grid" v-if="latestArticles?.length > 0">
-         <article 
-            v-for="article in latestArticles" 
-            :key="article._path"
-            class="article-card"
-          >
-            <NuxtLink :to="article._path">
-              <div class="article-image" v-if="article.image">
-                <NuxtImg :src="article.image" :alt="article.title" loading="lazy" width="400" height="250" />
-              </div>
-              <div class="article-content">
-                <span class="article-category">{{ article.category || '知识百科' }}</span>
-                <h3 class="article-title">{{ article.title }}</h3>
-                <p class="article-desc" v-if="article.description">{{ article.description }}</p>
-                <span class="article-date">{{ formatDate(article.date) }}</span>
-              </div>
-            </NuxtLink>
-          </article>
-        </div>
-        <div class="section-actions">
-          <NuxtLink to="/articles" class="btn btn-outline-primary">查看更多资讯</NuxtLink>
-        </div>
-      </div>
-    </section>
-
     <!-- Routes Section -->
     <section class="routes-section">
       <div class="container">
@@ -146,24 +117,63 @@
         </div>
       </div>
     </section>
+
+    <!-- Latest Articles Section -->
+    <section class="articles-section">
+      <div class="container">
+        <h2 class="section-title">最新资讯</h2>
+        <div class="articles-grid" v-if="latestArticles?.length > 0">
+         <article 
+            v-for="article in latestArticles" 
+            :key="article._path"
+            class="article-card"
+          >
+            <NuxtLink :to="article._path">
+              <div class="article-image" v-if="article.image">
+                <NuxtImg :src="article.image" :alt="article.title" loading="lazy" width="400" height="250" />
+              </div>
+              <div class="article-content">
+                <span class="article-category">{{ article.category || '知识百科' }}</span>
+                <h3 class="article-title">{{ article.title }}</h3>
+                <p class="article-desc" v-if="article.description">{{ article.description }}</p>
+                <span class="article-date">{{ formatDate(article.date) }}</span>
+              </div>
+            </NuxtLink>
+          </article>
+        </div>
+        <div class="section-actions">
+          <NuxtLink to="/articles" class="btn btn-outline-primary">查看更多资讯</NuxtLink>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script setup>
 import { COMPANY_INFO, services, routes } from '~/composables/constants'
 
-const { data: latestArticles } = await useAsyncData('home-articles', () => {
-  return queryContent('articles')
-    .where({ _path: { $contains: '/articles/knowledge' } })
-    .sort({ date: -1 })
-    .limit(6)
-    // 核心优化：只提取展示卡片所需的字段
-    .only(['_path', 'title', 'description', 'image', 'date', 'category']) 
-    .find()
-}, {
-  lazy: true,
-  server: true
-})
+const { fetchArticlesList } = useContents()
+// 获取最新 6 篇 knowledge 文章
+const { data: latestArticles, pending } = await useAsyncData(
+  'home-articles',
+  async () => {
+    const articles = await fetchArticlesList('knowledge')
+    return articles.slice(0, 6)  // 取前 6 条
+  },
+  {
+    lazy: true,   // 组件挂载时才加载
+    server: true  // SSR 可用
+  }
+)
+// const { data: latestArticles } = await useAsyncData('home-articles', () => {
+//    return queryContent('articles') 
+//    .where({ _path: { $contains: '/articles/knowledge' } }) .
+//    sort({ date: -1 }) .limit(6) // 核心优化：只提取展示卡片所需的字段 
+//    .only(['_path', 'title', 'description', 'image', 'date', 'category']) 
+//    .find() 
+//   }, 
+//    { lazy: true, server: true  })
+
 const formatDate = (date) => {
   if (!date) return ''
   const d = new Date(date)
@@ -489,6 +499,19 @@ const homeJsonLd = {
 
 .section-actions {
   text-align: center;
+}
+
+.btn-outline-primary{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: white;
+  color: var(--primary-color);
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
 }
 
 .routes-section {

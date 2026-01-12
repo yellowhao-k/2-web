@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-const { fetchArticles } = useArticles()
+const { fetchArticlesList } = useContents()
 
 const loading = ref(false)
 const articlesMap = ref({
@@ -136,9 +136,9 @@ onMounted(async () => {
   try {
     // 同时获取三个分类的内容
     const [industry, company, knowledge] = await Promise.all([
-      fetchArticles('industry'),
-      fetchArticles('company'),
-      fetchArticles('knowledge')
+      fetchArticlesList('industry'),
+      fetchArticlesList('company'),
+      fetchArticlesList('knowledge')
     ])
     articlesMap.value.industry = industry || []
     articlesMap.value.company = company || []

@@ -1,13 +1,13 @@
 // 公司信息常量
 export const COMPANY_INFO = {
-  name: '跨境物流公司',
-  phone: '400-123-4567',
-  email: 'service@logistics.com',
-  address: '中国广东省深圳市南山区科技园',
+  name: '时必达跨境物流',
+  phone: '13553796071',
+  email: 'yellowhao68@gmail.com',
+  address: '深圳市宝安区福永街道怀德社区第三工业区A4栋',
   logo: '/logo.png',
-  wechat: 'logistics_service',
+  wechat: 'h2o2809',
   wechatQR: '/images/wechat-qr.png',
-  domain: 'https://yourdomain.com',
+  domain: 'https://www.speedexp.top',
 
 
   /* ===== 业务关键词（SEO / JSON-LD 用） ===== */

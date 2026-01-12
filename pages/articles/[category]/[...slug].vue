@@ -57,18 +57,18 @@
 import { COMPANY_INFO } from '~/composables/constants'
 
 const route = useRoute()
+const { fetchArticleDetail, fetchArticleContext, fetchRelatedArticles } = useContents()
 
 // 1. 处理路径：确保路径格式为 /articles/category/slug
 const categoryParam = route.params.category
 const slugParam = Array.isArray(route.params.slug) ? route.params.slug.join('/') : route.params.slug
-const contentPath = `/articles/${categoryParam}/${slugParam}`.replace(/\/+/g, '/')
 
-// 2. 获取当前文章：使用唯一 Key 避免水合冲突
-const { data: article } = await useAsyncData(`article-detail-${contentPath}`, () => 
-  queryContent().where({ _path: contentPath }).findOne()
+// 2. 获取当前文章
+const { data: article } = await useAsyncData(`article-detail-${slugParam}`, () => 
+  fetchArticleDetail(slugParam, categoryParam)
 )
 
-// 404 兜底
+
 if (!article.value) {
   throw createError({ statusCode: 404, statusMessage: '文章未找到', fatal: true })
 }
@@ -83,33 +83,21 @@ const categoryDisplayName = computed(() => {
   return article.value?.category || categoryMap[categoryParam] || '资讯中心'
 })
 
-// 4. 获取相邻文章 (修正：基于路径前缀查询以确保上下文正确)
-const { data: surround } = await useAsyncData(`surround-${contentPath}`, () => 
-  queryContent('articles')
-    .where({ _path: { $contains: `/articles/${categoryParam}` } }) // 锁定子目录
-    .sort({ date: -1 })
-    .only(['_path', 'title', 'slug']) // 仅获取必要字段优化性能
-    .findSurround(contentPath)
+// 4. 获取上下篇文章
+const { data: surround } = await useAsyncData(
+  `article-context-${slugParam}`,
+  () => fetchArticleContext(article.value._path)
 )
-
 const prev = computed(() => surround.value?.[0])
 const next = computed(() => surround.value?.[1])
 
-// 5. 获取相关文章 (修正：同子目录下排除当前篇)
-const { data: relatedArticles } = await useAsyncData(`related-${contentPath}`, () => 
-  queryContent('articles')
-    .where({ 
-      _path: { 
-        $contains: `/articles/${categoryParam}`, 
-        $ne: contentPath 
-      } 
-    })
-    .limit(6)
-    .sort({ date: -1 })
-    .find()
+// 5. 获取相关文章
+const { data: relatedArticles } = await useAsyncData(
+  `related-articles-${slugParam}`,
+  () => fetchRelatedArticles(slugParam, categoryParam)
 )
 
-// 6. 面包屑数据计算
+// 6. 面包屑
 const breadcrumbItems = computed(() => [
   { name: '首页', path: '/' },
   { name: '资讯中心', path: '/articles' },
@@ -117,18 +105,16 @@ const breadcrumbItems = computed(() => [
   { name: article.value?.title, path: route.path }
 ])
 
-// 1. 动态 Title 和 Description
+// 7. 动态 Title / Description
 const pageTitle = computed(() => `${article.value?.title} - ${categoryDisplayName.value} - ${COMPANY_INFO.name}`)
 const pageDesc = computed(() => article.value?.description || article.value?.title)
 
-// 2. 结构化数据 (BlogPosting)
+// 8. JsonLd 结构化数据
 const articleJsonLd = computed(() => {
   if (!article.value) return {}
-  
   return {
     "@context": "https://schema.org",
     "@graph": [
-      // 第一部分：文章主体信息 (BlogPosting)
       {
         "@type": "BlogPosting",
         "@id": `${COMPANY_INFO.domain}${route.path}#article`,
@@ -155,21 +141,20 @@ const articleJsonLd = computed(() => {
           "@id": `${COMPANY_INFO.domain}${route.path}`
         }
       },
-      // 第二部分：面包屑路径 (BreadcrumbList)
       {
         "@type": "BreadcrumbList",
         "itemListElement": breadcrumbItems.value.map((item, index) => ({
           "@type": "ListItem",
           "position": index + 1,
           "name": item.name,
-          "item": `${COMPANY_INFO.domain}${item.path}`.replace(/\/+$/, '') // 防止末尾斜杠冲突
+          "item": `${COMPANY_INFO.domain}${item.path}`.replace(/\/+$/, '')
         }))
       }
     ]
   }
 })
 
-// 7. 格式化日期：使用补零方案避免服务器/客户端时区造成的 Mismatch
+// 9. 格式化日期
 const formatDate = (date) => {
   if (!date) return ''
   const d = new Date(date)
@@ -178,9 +163,8 @@ const formatDate = (date) => {
   const day = String(d.getDate()).padStart(2, '0')
   return `${year}年${month}月${day}日`
 }
-
-
 </script>
+
 
 <style scoped>
 .article-detail-page { padding: 1rem 0; background: #fcfcfc; min-height: 80vh; }

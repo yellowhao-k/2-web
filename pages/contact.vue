@@ -171,8 +171,8 @@
               <div class="map-placeholder">
                 <div class="map-placeholder-content">
                   <i class="icon-map"></i>
-                  <p>深圳市南山区科技园地图</p>
-                  <p>实际项目中可嵌入百度/Google地图</p>
+                  <p>深圳市宝安区</p>
+                  
                 </div>
               </div>
             </div>
@@ -180,8 +180,8 @@
             <div class="location-tips">
               <h3 class="tips-title">交通指南</h3>
               <ul class="tips-list">
-                <li>地铁：1号线高新园站A出口，步行约10分钟</li>
-                <li>公交：科技园站、深南科苑立交北站等</li>
+                <li>地铁：12号线福围站A出口，步行约10分钟</li>
+                <li>公交：咸田站，北站等</li>
                 <li>停车：园区内有充足停车位</li>
               </ul>
               <p class="tips-note">

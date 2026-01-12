@@ -74,9 +74,13 @@
 
 <script setup>
 import { COMPANY_INFO } from '~/composables/constants'
+import { useContents } from '~/composables/useContents'
+import { ref, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
+const { fetchArticlesList } = useContents() // ✅ 使用封装方法
 
 const categoryMap = {
   company: { name: '公司动态', desc: '了解公司最新动态和发展' },
@@ -93,13 +97,13 @@ const categoryDesc = computed(() => categoryInfo.value.desc)
 const itemsPerPage = 6
 const currentPage = ref(parseInt(route.query.page) || 1)
 
-// 核心替换：使用 queryContent 抓取对应文件夹内容，支持 SSR
-const { data: articles, pending } = await useAsyncData(`articles-${currentCategory.value}`, () => 
-  queryContent('articles', currentCategory.value)
-    .sort({ date: -1 })
-    .find()
+// ✅ 使用 useAsyncData + fetchArticlesList 获取文章列表
+const { data: articles, pending } = await useAsyncData(
+  `articles-${currentCategory.value}`,
+  () => fetchArticlesList(currentCategory.value)
 )
 
+// 分页计算
 const paginatedArticles = computed(() => {
   if (!articles.value) return []
   const start = (currentPage.value - 1) * itemsPerPage
@@ -110,54 +114,51 @@ const totalPages = computed(() => {
   return articles.value ? Math.ceil(articles.value.length / itemsPerPage) : 0
 })
 
+// 面包屑
 const breadcrumbItems = computed(() => [
   { name: '首页', path: '/' },
   { name: '资讯中心', path: '/articles' },
   { name: categoryName.value, path: route.path }
 ])
 
-// 1. 动态 Title：包含分类名称与页码（避免重复标题）
+// 动态 Title / Description
 const pageTitle = computed(() => {
   const pageSuffix = currentPage.value > 1 ? ` - 第${currentPage.value}页` : ''
-  return `${categoryName.value}_${categoryInfo.value.name}资讯 - ${COMPANY_INFO.name}${pageSuffix}`
+  return `${categoryName.value}资讯 - ${COMPANY_INFO.name}${pageSuffix}`
 })
-
-// 2. 动态 Description
 const pageDesc = computed(() => 
   `${COMPANY_INFO.name}${categoryName.value}频道：为您提供${categoryDesc.value}。涵盖最新的${categoryName.value}文章，帮助您深度了解跨境物流趋势。`
 )
 
-// 3. JsonLd 结构化数据
-const categoryJsonLd = computed(() => {
-  return {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "CollectionPage",
-        "name": pageTitle.value,
-        "description": pageDesc.value,
-        "url": `${COMPANY_INFO.domain}${route.path}`,
-        "mainEntity": {
-          "@type": "ItemList",
-          "itemListElement": paginatedArticles.value.map((article, index) => ({
-            "@type": "ListItem",
-            "position": index + 1,
-            "url": `${COMPANY_INFO.domain}/articles/${currentCategory.value}/${article.slug}`,
-            "name": article.title
-          }))
-        }
-      },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "首页", "item": COMPANY_INFO.domain },
-          { "@type": "ListItem", "position": 2, "name": "资讯中心", "item": `${COMPANY_INFO.domain}/articles` },
-          { "@type": "ListItem", "position": 3, "name": categoryName.value, "item": `${COMPANY_INFO.domain}${route.path}` }
-        ]
+// CollectionPage JsonLd
+const categoryJsonLd = computed(() => ({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "name": pageTitle.value,
+      "description": pageDesc.value,
+      "url": `${COMPANY_INFO.domain}${route.path}`,
+      "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": paginatedArticles.value.map((article, index) => ({
+          "@type": "ListItem",
+          "position": index + 1,
+          "url": `${COMPANY_INFO.domain}/articles/${currentCategory.value}/${article.slug}`,
+          "name": article.title
+        }))
       }
-    ]
-  }
-})
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": COMPANY_INFO.domain },
+        { "@type": "ListItem", "position": 2, "name": "资讯中心", "item": `${COMPANY_INFO.domain}/articles` },
+        { "@type": "ListItem", "position": 3, "name": categoryName.value, "item": `${COMPANY_INFO.domain}${route.path}` }
+      ]
+    }
+  ]
+}))
 
 const formatDate = (date) => {
   if (!date) return ''
@@ -168,14 +169,14 @@ const formatDate = (date) => {
   })
 }
 
+// 分页跳转
 const handlePageChange = (page) => {
   currentPage.value = page
   router.push({ query: { ...route.query, page } })
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
-
-
 </script>
+
 
 <style scoped>
 .articles-category-page {
@@ -340,4 +341,3 @@ const handlePageChange = (page) => {
   }
 }
 </style>
-

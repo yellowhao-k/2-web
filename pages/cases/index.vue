@@ -3,30 +3,35 @@ import { COMPANY_INFO } from '~/composables/constants'
 
 const route = useRoute()
 const router = useRouter()
-const { fetchCases, cases, loading } = useArticles()
+
+const { fetchCasesList, loading } = useContents()
 
 // 1. 配置
 const itemsPerPage = 6
 
-// 2. SSR 数据获取：确保数据在服务端就抓取好
-await useAsyncData('cases-list', () => fetchCases())
+// 2. SSR 获取 cases 列表（字段已裁剪）
+const { data: casesData } = await useAsyncData(
+  'cases-list',
+  () => fetchCasesList()
+)
 
-// 3. 响应式计算当前页码
+// 3. 当前页
 const currentPage = computed(() => {
   const page = parseInt(route.query.page) || 1
   return page > 0 ? page : 1
 })
 
-// 4. 根据页码切片数据
+// 4. 当前页数据
 const paginatedCases = computed(() => {
+  if (!casesData.value) return []
   const start = (currentPage.value - 1) * itemsPerPage
-  const end = start + itemsPerPage
-  return cases.value.slice(start, end)
+  return casesData.value.slice(start, start + itemsPerPage)
 })
 
-// 5. 计算总页数
+// 5. 总页数
 const totalPages = computed(() => {
-  return Math.ceil(cases.value.length / itemsPerPage)
+  if (!casesData.value) return 0
+  return Math.ceil(casesData.value.length / itemsPerPage)
 })
 
 const formatDate = (date) => {
@@ -39,27 +44,27 @@ const formatDate = (date) => {
   })
 }
 
-// 6. 页码切换逻辑
+// 6. 翻页
 const handlePageChange = (page) => {
-  // 修改 URL 参数触发 currentPage 的计算属性更新
   router.push({ query: { ...route.query, page } })
   if (process.client) {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 }
 
+// 面包屑
 const breadcrumbItems = [
   { name: '首页', path: '/' },
   { name: '客户案例', path: '/cases' }
 ]
 
-// 3. 增强型 JSON-LD：帮助 Google 识别这是一个案例集合页
+// CollectionPage Schema
 const casesJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  'name': `跨境物流成功案例 - ${COMPANY_INFO.name}`,
-  'description': `展示我们在${COMPANY_INFO.services.join('、')}等领域的专业解决方案。`,
-  'url': `${COMPANY_INFO.domain}/cases`,
+  name: `跨境物流成功案例 - ${COMPANY_INFO.name}`,
+  description: `展示我们在${COMPANY_INFO.services.join('、')}等领域的专业解决方案。`,
+  url: `${COMPANY_INFO.domain}/cases`
 }
 </script>
 

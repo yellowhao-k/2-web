@@ -3,66 +3,109 @@ import { COMPANY_INFO } from '~/composables/constants'
 
 const route = useRoute()
 const slug = route.params.slug
-const { getCaseBySlug, fetchCases, getRelatedItems } = useArticles()
+const {
+  fetchCaseDetail,
+  fetchCaseContext,
+  fetchRelatedCases
+} = useContents()
 
-// 1. 获取当前案例 (优先从缓存或直接查询)
-const { data: caseItem } = await useAsyncData(`case-${slug}`, () => getCaseBySlug(slug))
+/* =====================================================
+ * 1. 当前案例（整篇，SSR，先走缓存）
+ * ===================================================== */
+const { data: caseItem } = await useAsyncData(
+  `case-${slug}`,
+  () => fetchCaseDetail(slug)
+)
+
+
 
 if (!caseItem.value) {
-  throw createError({ statusCode: 404, message: '案例未找到', fatal: true })
+  throw createError({
+    statusCode: 404,
+    message: '案例未找到',
+    fatal: true
+  })
 }
 
-// 2. 关键点：必须加载案例全量列表，否则推荐函数没数据可筛
-// fetchCases 内部有缓存，如果是从列表页跳过来的，这里几乎不耗时
-await useAsyncData('cases-all-list', () => fetchCases())
+/* =====================================================
+ * 2. 上下篇（findSurround，字段已裁剪）
+ * ===================================================== */
+const { data: surround } = await useAsyncData(
+  `case-surround-${slug}`,
+  () => fetchCaseContext(route.path)
+)
 
-// 3. 计算相关案例
-const relatedCases = computed(() => {
-  return getRelatedItems(slug, caseItem.value.category, 'cases', 6)
-})
+const prevArticle = computed(() => surround.value?.[0] || null)
+const nextArticle = computed(() => surround.value?.[1] || null)
 
-// 4. 计算上下篇
-const { cases: allCases } = useArticles()
-const currentIndex = computed(() => allCases.value.findIndex(c => c.slug === slug || c._path?.endsWith(slug)))
-const prevArticle = computed(() => currentIndex.value > 0 ? allCases.value[currentIndex.value - 1] : null)
-const nextArticle = computed(() => (currentIndex.value !== -1 && currentIndex.value < allCases.value.length - 1) ? allCases.value[currentIndex.value + 1] : null)
+/* =====================================================
+ * 3. 相关文章（推荐）
+ * ===================================================== */
+const { data: relatedCases } = await useAsyncData(
+  `case-related-${slug}`,
+  () => fetchRelatedCases(slug, 6)
+)
 
+/* =====================================================
+ * 4. 面包屑
+ * ===================================================== */
 const breadcrumbItems = [
   { name: '首页', path: '/' },
   { name: '客户案例', path: '/cases' },
   { name: caseItem.value.title, path: route.path }
 ]
 
-const formatDate = (date) => date ? new Date(date).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }) : ''
+/* =====================================================
+ * 5. SEO 文本
+ * ===================================================== */
+const pageTitle = `${caseItem.value.title}｜跨境物流成功案例｜${COMPANY_INFO.name}`
 
+const pageDesc =
+  caseItem.value.description ||
+  `${COMPANY_INFO.name}分享${caseItem.value.title}的跨境物流实操案例，涵盖运输路线、清关流程、成本与时效优化方案。`
 
-// 3. 语义化 SEO 字段
-const pageTitle = `${caseItem.value.title}_跨境物流成功案例_${COMPANY_INFO.name}`
-const pageDesc = caseItem.value.description || `${COMPANY_INFO.name}分享关于${caseItem.value.category}的物流操作案例。涵盖运输路线、清关流程及成本控制方案。`
-
-// 结构化数据 (JSON-LD)
+/* =====================================================
+ * 6. JSON-LD（CaseStudy 更合适）
+ * ===================================================== */
 const articleJsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Article',
-  'headline': caseItem.value.title,
-  'description': pageDesc,
-  'image': [caseItem.value.image ? (COMPANY_INFO.domain + caseItem.value.image) : ''],
-  'datePublished': caseItem.value.date,
-  'author': {
+  '@type': 'CaseStudy',
+  headline: caseItem.value.title,
+  description: pageDesc,
+  image: caseItem.value.image
+    ? [COMPANY_INFO.domain + caseItem.value.image]
+    : [],
+  datePublished: caseItem.value.date,
+  author: {
     '@type': 'Organization',
-    'name': COMPANY_INFO.name,
-    'url': COMPANY_INFO.domain
+    name: COMPANY_INFO.name,
+    url: COMPANY_INFO.domain
   },
-  'publisher': {
+  publisher: {
     '@type': 'Organization',
-    'name': COMPANY_INFO.name,
-    'logo': {
+    name: COMPANY_INFO.name,
+    logo: {
       '@type': 'ImageObject',
-      'url': COMPANY_INFO.domain + '/logo.png'
+      url: COMPANY_INFO.domain + '/logo.png'
     }
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': COMPANY_INFO.domain + route.path
   }
 }
+
+
+const formatDate = (date) => {
+  if (!date) return ''
+  const d = new Date(date)
+  const year = d.getFullYear()
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${year}年${month}月${day}日`
+}
 </script>
+
 
 <template>
   <div class="case-detail-page">
@@ -70,7 +113,7 @@ const articleJsonLd = {
     <div class="container">
       <Breadcrumb :items="breadcrumbItems" />
       
-      <article class="case-article">
+      <article class="case-article" v-if="caseItem">
         <header class="article-header">
           <h1 class="article-title">{{ caseItem.title }}</h1>
           <div class="article-meta">
@@ -92,7 +135,7 @@ const articleJsonLd = {
         />
 
         <RelatedArticles 
-          v-if="relatedCases.length > 0"
+          v-if="relatedCases?.length > 0"
           :articles="relatedCases" 
           base-url="/cases" 
           title="相关文章"
