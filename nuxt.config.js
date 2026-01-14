@@ -95,14 +95,14 @@ export default defineNuxtConfig({
    * =========================== */
   nitro: {
     // 默认 Node Server，最通用（宝塔 / PM2 / Docker）
-    preset: 'node-server',
-    compatibilityDate: '2025-01-01',
-    // 压缩 public 静态资源（gzip / brotli）
-    compressPublicAssets: {
-      gzip: true,
-      brotli: true
-    },
-
+    // preset: 'node-server',
+    // compatibilityDate: '2025-01-01',
+    // // 压缩 public 静态资源（gzip / brotli）
+    // compressPublicAssets: {
+    //   gzip: true,
+    //   brotli: true
+    // },
+    preset: 'static',
     // 自动爬所有 <NuxtLink> 进行预渲染（内容站核心）
     prerender: {
       crawlLinks: true
@@ -125,7 +125,8 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       ]
-    }
+    },
+    baseURL: '/'
   },
 
   /* ===========================
