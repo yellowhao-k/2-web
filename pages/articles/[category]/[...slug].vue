@@ -62,6 +62,7 @@ const { fetchArticleDetail, fetchArticleContext, fetchRelatedArticles } = useCon
 // 1. 处理路径：确保路径格式为 /articles/category/slug
 const categoryParam = route.params.category
 const slugParam = Array.isArray(route.params.slug) ? route.params.slug.join('/') : route.params.slug
+console.log(categoryParam, slugParam);
 
 // 2. 获取当前文章
 const { data: article } = await useAsyncData(`article-detail-${slugParam}`, () => 

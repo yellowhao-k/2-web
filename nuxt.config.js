@@ -95,18 +95,18 @@ export default defineNuxtConfig({
    * =========================== */
   nitro: {
     // 默认 Node Server，最通用（宝塔 / PM2 / Docker）
-    // preset: 'node-server',
+    preset: 'node-server',
     // compatibilityDate: '2025-01-01',
     // // 压缩 public 静态资源（gzip / brotli）
     // compressPublicAssets: {
     //   gzip: true,
     //   brotli: true
     // },
-    preset: 'static',
+    // preset: 'static',
     // 自动爬所有 <NuxtLink> 进行预渲染（内容站核心）
     prerender: {
       crawlLinks: true
-    }
+    },
   },
 
   /* ===========================
@@ -158,27 +158,27 @@ export default defineNuxtConfig({
     extractCSS: true
   },
 
-  vite: {
-    build: {
-      rollupOptions: {
-        output: {
-          // 手动拆分 JS
-          manualChunks(id) {
-            if (id.includes('node_modules')) return 'vendor'
-            if (id.endsWith('.css')) return 'styles'
-          },
-          // 设置文件名结构，方便缓存和 CDN
-          chunkFileNames: 'js/[name]-[hash].js',
-          entryFileNames: 'js/[name]-[hash].js',
-          assetFileNames: (assetInfo) => {
-            if (/\.css$/.test(assetInfo.name ?? '')) return 'css/[name]-[hash][extname]'
-            if (/\.(png|jpe?g|svg|gif|webp|avif)$/.test(assetInfo.name ?? '')) return 'images/[name]-[hash][extname]'
-            return 'assets/[name]-[hash][extname]'
-          }
-        }
-      },
-      // CSS 预处理优化
-      cssCodeSplit: true
-    }
-  }
+  // vite: {
+  //   build: {
+  //     rollupOptions: {
+  //       output: {
+  //         // 手动拆分 JS
+  //         manualChunks(id) {
+  //           if (id.includes('node_modules')) return 'vendor'
+  //           if (id.endsWith('.css')) return 'styles'
+  //         },
+  //         // 设置文件名结构，方便缓存和 CDN
+  //         chunkFileNames: 'js/[name]-[hash].js',
+  //         entryFileNames: 'js/[name]-[hash].js',
+  //         assetFileNames: (assetInfo) => {
+  //           if (/\.css$/.test(assetInfo.name ?? '')) return 'css/[name]-[hash][extname]'
+  //           if (/\.(png|jpe?g|svg|gif|webp|avif)$/.test(assetInfo.name ?? '')) return 'images/[name]-[hash][extname]'
+  //           return 'assets/[name]-[hash][extname]'
+  //         }
+  //       }
+  //     },
+  //     // CSS 预处理优化
+  //     cssCodeSplit: true
+  //   }
+  // }
 })
