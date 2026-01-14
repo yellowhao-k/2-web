@@ -1,7 +1,7 @@
 ---
 title: "货运保险有必要买吗？2026跨境物流赔付标准、一切险与共同海损全解析"
 description: "货丢了货代只赔运费？本文深度解析跨境物流货运保险的必要性，揭秘“共同海损”风险，以及如何购买“一切险”保障货值安全。"
-date: 2026-02-10
+date: 2026-01-10
 category: "知识百科"
 slug: "why-buy-cargo-insurance-general-average-guide"
 image: "/images/about.jpg"

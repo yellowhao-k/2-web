@@ -1,7 +1,7 @@
 ---
 title: "货物被海关查验了怎么办？2026跨境物流查验类型、费用详解与避坑指南"
 description: "海关查验要多久放行？MET与CET查验有什么区别？本文深度解析海关查验(Customs Inspection)的三大类型、产生的查验费由谁承担以及如何降低查验率。"
-date: 2026-02-08
+date: 2026-01-08
 category: "知识百科"
 slug: "customs-inspection-process-types-and-costs"
 image: "/images/about.jpg"

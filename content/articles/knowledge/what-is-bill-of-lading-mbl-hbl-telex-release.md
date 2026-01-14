@@ -1,7 +1,7 @@
 ---
 title: "什么是提单(B/L)？2026海运提单种类详解：MBL vs HBL与电放提单(Telex Release)"
 description: "海运提单是物权凭证吗？船东单(MBL)与货代单(HBL)有什么区别？本文深度解析海运提单的种类、电放(Telex Release)与正本提单的操作流程及风险控制。"
-date: 2026-02-04
+date: 2026-01-04
 category: "知识百科"
 slug: "what-is-bill-of-lading-mbl-hbl-telex-release"
 image: "/images/about.jpg"

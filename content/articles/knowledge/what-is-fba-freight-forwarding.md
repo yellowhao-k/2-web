@@ -1,7 +1,7 @@
 ---
 title: "什么是FBA头程？2026亚马逊跨境物流运输方式与流程全解析"
 description: "新手必读！深度解析FBA头程物流的三大运输方式（海运/空运/铁运）、双清包税模式及计费规则，助您选择最合适的跨境物流方案。"
-date: 2026-01-20
+date: 2026-01-03
 category: "知识百科"
 slug: "what-is-fba-freight-forwarding"
 image: "/images/about.jpg"

@@ -1,7 +1,7 @@
 ---
 title: "Demurrage与Detention有什么区别？2026海运滞港费、滞箱费与堆存费全解析"
 description: "货柜到港后没及时提货会被罚款吗？本文深度解析国际海运中Demurrage(滞港费)、Detention(滞箱费)与Storage(堆存费)的区别，揭秘Free Time(免用箱期)的计算规则。"
-date: 2026-02-16
+date: 2026-01-06
 category: "知识百科"
 slug: "difference-between-demurrage-detention-storage"
 image: "/images/about.jpg"

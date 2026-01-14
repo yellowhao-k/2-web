@@ -1,7 +1,7 @@
 ---
 title: "DDP、DDU与DAP的区别是什么？2026跨境电商卖家必懂的贸易术语详解"
 description: "做FBA发货该选DDP还是DAP？本文深度解析2026年国际贸易术语(Incoterms)中DDP双清包税与DDU/DAP未完税交货的区别，以及它们对关税、增值税和清关风险的影响。"
-date: 2026-01-24
+date: 2026-01-04
 category: "知识百科"
 slug: "difference-between-ddp-ddu-dap-incoterms"
 image: "/images/about.jpg"

@@ -1,7 +1,7 @@
 ---
 title: "什么是ISF申报(10+2)？2026美国海运进口$5000罚款陷阱与截单时间详解"
 description: "发海运去美国必须在开船前24小时申报ISF吗？迟报会被罚款$5000？本文深度解析美国海关ISF(10+2)申报的包含内容、截止时间红线以及AMS与ISF的区别。"
-date: 2026-02-14
+date: 2026-01-14
 category: "知识百科"
 slug: "what-is-isf-10-plus-2-filing-requirements"
 image: "/images/about.jpg"

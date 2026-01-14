@@ -1,7 +1,7 @@
 ---
 title: "什么是HS编码？2026海关编码查询、归类技巧与关税税率影响全解析"
 description: "HS Code填错会导致货物被扣吗？本文深度解析海关编码(HS Code)的结构含义，揭秘HTS编码与HS编码的区别，以及如何正确归类以避免关税补缴和海关罚款。"
-date: 2026-02-02
+date: 2026-01-02
 category: "知识百科"
 slug: "what-is-hs-code-and-hts-code-classification"
 image: "/images/about.jpg"

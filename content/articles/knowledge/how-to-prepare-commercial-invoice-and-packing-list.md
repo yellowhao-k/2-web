@@ -1,7 +1,7 @@
 ---
 title: "商业发票(CI)与装箱单(PL)怎么写？2026跨境物流清关单证规范与避坑模板"
 description: "海关扣货是因为发票写错？本文深度解析国际物流中商业发票(Commercial Invoice)与装箱单(Packing List)的必备要素，揭秘低申报、品名模糊等常见清关雷区。"
-date: 2026-02-06
+date: 2026-01-06
 category: "知识百科"
 slug: "how-to-prepare-commercial-invoice-and-packing-list"
 image: "/images/about.jpg"

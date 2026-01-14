@@ -1,7 +1,7 @@
 ---
 title: "2026亚马逊FBA包装与贴标规范详解：FNSKU、外箱尺寸与打托标准全攻略"
 description: "FBA外箱尺寸超标会被拒收吗？如何正确打印和粘贴FNSKU标签？本文详解2026年亚马逊FBA入仓的各项包装规范，包括单箱限重、托盘高度及标签打印技巧。"
-date: 2026-01-30
+date: 2026-01-02
 category: "知识百科"
 slug: "amazon-fba-packaging-labeling-requirements-2026"
 image: "/images/about.jpg"

@@ -1,7 +1,7 @@
 ---
 title: "LCL拼箱与FCL整柜的区别是什么？2026海运划算选择指南与临界点测算"
 description: "货量达到多少个方走整柜才划算？本文深度解析海运LCL(拼箱)与FCL(整柜)的定义、费用结构差异及通关风险，教你如何根据CBM计算最优出货方案。"
-date: 2026-01-26
+date: 2026-01-06
 category: "知识百科"
 slug: "difference-between-lcl-and-fcl-shipping"
 image: "/images/about.jpg"

@@ -1,7 +1,7 @@
 ---
 title: "普货、敏感货与违禁品有什么区别？2026跨境物流货物分类与发货指南"
 description: "为什么带电带磁的产品运费更贵？本文深度解析国际物流中普货、敏感货及违禁品的界定标准，揭秘锂电池、液体化妆品及仿牌货物的特殊发货渠道与风险。"
-date: 2026-01-28
+date: 2026-01-08
 category: "知识百科"
 slug: "difference-between-general-sensitive-contraband-cargo"
 image: "/images/about.jpg"

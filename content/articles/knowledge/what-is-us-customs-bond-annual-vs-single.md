@@ -1,7 +1,7 @@
 ---
 title: "美国海关Bond是什么？2026年Annual Bond与Single Entry Bond选择指南"
 description: "进口美国必须购买Bond吗？单次Bond和年Bond哪个划算？本文深度解析美国海关保证金(Customs Bond)的运作机制，揭秘ISF申报与Bond的关系及费用临界点测算。"
-date: 2026-02-12
+date: 2026-01-12
 category: "知识百科"
 slug: "what-is-us-customs-bond-annual-vs-single"
 image: "/images/about.jpg"

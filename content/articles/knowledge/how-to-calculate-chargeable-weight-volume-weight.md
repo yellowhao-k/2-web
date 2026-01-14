@@ -1,7 +1,7 @@
 ---
 title: "跨境物流材积重与实重怎么算？2026最新计费重计算公式与分泡避坑指南"
 description: "物流运费太贵？可能是你没算对材积重！本文详解2026年国际物流除5000与除6000的计算公式，揭秘实重与体积重取大值的计费逻辑及分泡技巧。"
-date: 2026-01-22
+date: 2026-01-02
 category: "知识百科"
 slug: "how-to-calculate-chargeable-weight-volume-weight"
 image: "/images/about.jpg"
