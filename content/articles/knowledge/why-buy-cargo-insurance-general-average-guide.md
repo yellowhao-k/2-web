@@ -4,7 +4,7 @@ description: "货丢了货代只赔运费？本文深度解析跨境物流货运
 date: 2026-02-10
 category: "知识百科"
 slug: "why-buy-cargo-insurance-general-average-guide"
-image: "/images/cargo-insurance-guide.jpg"
+image: "/images/about.jpg"
 tags: ["货运保险", "一切险", "共同海损", "物流赔偿", "跨境电商风险"]
 ---
 

@@ -4,7 +4,7 @@ description: "为什么带电带磁的产品运费更贵？本文深度解析国
 date: 2026-01-28
 category: "知识百科"
 slug: "difference-between-general-sensitive-contraband-cargo"
-image: "/images/cargo-classification-guide.jpg"
+image: "/images/about.jpg"
 tags: ["普货", "敏感货", "违禁品", "危险品运输", "物流干货"]
 ---
 

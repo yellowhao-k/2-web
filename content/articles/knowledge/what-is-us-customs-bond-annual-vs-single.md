@@ -4,7 +4,7 @@ description: "进口美国必须购买Bond吗？单次Bond和年Bond哪个划算
 date: 2026-02-12
 category: "知识百科"
 slug: "what-is-us-customs-bond-annual-vs-single"
-image: "/images/us-customs-bond-guide.jpg"
+image: "/images/about.jpg"
 tags: ["Customs Bond", "美国清关", "Annual Bond", "ISF申报", "进口合规"]
 ---
 

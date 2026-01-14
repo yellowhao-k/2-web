@@ -4,7 +4,7 @@ description: "货柜到港后没及时提货会被罚款吗？本文深度解析
 date: 2026-02-16
 category: "知识百科"
 slug: "difference-between-demurrage-detention-storage"
-image: "/images/demurrage-detention-guide.jpg"
+image: "/images/about.jpg"
 tags: ["Demurrage", "Detention", "滞港费", "滞箱费", "海运附加费", "免用箱期"]
 ---
 

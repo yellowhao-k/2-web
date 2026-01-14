@@ -4,7 +4,7 @@ description: "海关查验要多久放行？MET与CET查验有什么区别？本
 date: 2026-02-08
 category: "知识百科"
 slug: "customs-inspection-process-types-and-costs"
-image: "/images/customs-inspection-guide.jpg"
+image: "/images/about.jpg"
 tags: ["海关查验", "查验费", "清关延误", "查验率", "跨境物流"]
 ---
 

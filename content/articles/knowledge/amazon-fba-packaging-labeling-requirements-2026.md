@@ -4,7 +4,7 @@ description: "FBA外箱尺寸超标会被拒收吗？如何正确打印和粘贴
 date: 2026-01-30
 category: "知识百科"
 slug: "amazon-fba-packaging-labeling-requirements-2026"
-image: "/images/fba-packaging-guide.jpg"
+image: "/images/about.jpg"
 tags: ["FBA标签", "FNSKU", "FBA包装要求", "亚马逊入仓", "打托标准"]
 ---
 

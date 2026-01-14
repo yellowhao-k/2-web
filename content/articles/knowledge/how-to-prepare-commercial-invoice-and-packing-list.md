@@ -4,7 +4,7 @@ description: "海关扣货是因为发票写错？本文深度解析国际物流
 date: 2026-02-06
 category: "知识百科"
 slug: "how-to-prepare-commercial-invoice-and-packing-list"
-image: "/images/customs-documents-guide.jpg"
+image: "/images/about.jpg"
 tags: ["商业发票", "装箱单", "清关资料", "申报价值", "单证规范"]
 ---
 

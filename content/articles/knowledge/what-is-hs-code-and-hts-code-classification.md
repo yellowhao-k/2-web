@@ -4,7 +4,7 @@ description: "HS Code填错会导致货物被扣吗？本文深度解析海关�
 date: 2026-02-02
 category: "知识百科"
 slug: "what-is-hs-code-and-hts-code-classification"
-image: "/images/hs-code-guide.jpg"
+image: "/images/about.jpg"
 tags: ["HS编码", "海关归类", "关税查询", "HTS Code", "进出口合规"]
 ---
 

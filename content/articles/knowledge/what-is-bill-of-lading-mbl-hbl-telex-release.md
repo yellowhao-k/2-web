@@ -4,7 +4,7 @@ description: "海运提单是物权凭证吗？船东单(MBL)与货代单(HBL)�
 date: 2026-02-04
 category: "知识百科"
 slug: "what-is-bill-of-lading-mbl-hbl-telex-release"
-image: "/images/bill-of-lading-guide.jpg"
+image: "/images/about.jpg"
 tags: ["提单", "B/L", "MBL", "HBL", "电放", "海运单证"]
 ---
 

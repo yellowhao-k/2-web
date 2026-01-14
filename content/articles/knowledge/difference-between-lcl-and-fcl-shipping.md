@@ -4,7 +4,7 @@ description: "货量达到多少个方走整柜才划算？本文深度解析海
 date: 2026-01-26
 category: "知识百科"
 slug: "difference-between-lcl-and-fcl-shipping"
-image: "/images/container-loading-guide.jpg"
+image: "/images/about.jpg"
 tags: ["LCL", "FCL", "海运拼箱", "整柜运输", "物流成本"]
 ---
 

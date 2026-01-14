@@ -4,7 +4,7 @@ description: "发海运去美国必须在开船前24小时申报ISF吗？迟报�
 date: 2026-02-14
 category: "知识百科"
 slug: "what-is-isf-10-plus-2-filing-requirements"
-image: "/images/isf-filing-guide.jpg"
+image: "/images/about.jpg"
 tags: ["ISF申报", "10+2", "美国海运", "AMS", "海关罚款"]
 ---
 

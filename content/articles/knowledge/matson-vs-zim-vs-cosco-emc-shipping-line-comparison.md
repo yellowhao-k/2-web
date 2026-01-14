@@ -4,7 +4,7 @@ description: "发美国FBA选美森快船还是以星ZEX？普船(COSCO/EMC)慢�
 date: 2026-02-18
 category: "知识百科"
 slug: "matson-vs-zim-vs-cosco-emc-shipping-line-comparison"
-image: "/images/shipping-lines-comparison.jpg"
+image: "/images/about.jpg"
 tags: ["美森快船", "ZIM以星", "FBA海运", "COSCO", "EMC长荣", "物流时效"]
 ---
 

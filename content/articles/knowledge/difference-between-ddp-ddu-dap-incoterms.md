@@ -4,7 +4,7 @@ description: "做FBA发货该选DDP还是DAP？本文深度解析2026年国际�
 date: 2026-01-24
 category: "知识百科"
 slug: "difference-between-ddp-ddu-dap-incoterms"
-image: "/images/trade-terms-guide.jpg"
+image: "/images/about.jpg"
 tags: ["DDP", "DDU", "DAP", "贸易条款", "关税", "FBA物流"]
 ---
 

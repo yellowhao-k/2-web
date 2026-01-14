@@ -4,7 +4,7 @@ description: "新手必读！深度解析FBA头程物流的三大运输方式（
 date: 2026-01-20
 category: "知识百科"
 slug: "what-is-fba-freight-forwarding"
-image: "/images/fba-logistics-guide.jpg"
+image: "/images/about.jpg"
 tags: ["FBA头程", "跨境物流", "亚马逊运营", "海运", "空运"]
 ---
 

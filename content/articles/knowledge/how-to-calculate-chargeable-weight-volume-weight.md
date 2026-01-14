@@ -4,7 +4,7 @@ description: "物流运费太贵？可能是你没算对材积重！本文详解
 date: 2026-01-22
 category: "知识百科"
 slug: "how-to-calculate-chargeable-weight-volume-weight"
-image: "/images/weight-calculation-guide.jpg"
+image: "/images/about.jpg"
 tags: ["材积重", "计费重", "物流费用", "分泡", "跨境干货"]
 ---
 
